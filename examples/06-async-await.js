@@ -13,15 +13,21 @@ const fetchUserData = (user, resource) =>
 
 const run = async () => {
   try {
-    const user = await fetchUser(1)
+    const [userId] = process.argv.slice(2)
+    if (!userId) {
+      throw new Error('You have to pass user id as arugment')
+    }
+    const user = await fetchUser(userId)
+    console.log(`User with id ${userId} is ${colors.green(user.name)}`)
     const [todos, albums, comments] = await Promise.all([
       fetchUserData(user, 'todos'),
       fetchUserData(user, 'albums'),
       fetchUserData(user, 'comments')
     ])
-    console.log(colors.green('todos count'), todos.length)
-    console.log(colors.green('albums count'), albums.length)
-    console.log(colors.green('comments count'), comments.length)
+    console.log(`${colors.green(user.name)}'s details:`)
+    console.log('todos count:', colors.green(todos.length))
+    console.log('albums count:', colors.green(albums.length))
+    console.log('comments count:', colors.green(comments.length))
   } catch (err) {
     console.log(colors.red('Error occured:'), err.message)
   } finally {
