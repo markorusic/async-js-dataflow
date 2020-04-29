@@ -76,15 +76,21 @@ const UsersList = ({ users, onUserClick, ...props }) => (
   <AsyncContainer {...users}>
     <div {...props}>
       <ul>
-        {(users.value || []).map(user => (
-          <li
-            className="p-5 rounded cursor-pointer bg-blue-300 text-white mb-1 transition duration-300 hover:bg-blue-500 "
-            key={user.id}
-            onClick={() => onUserClick(user)}
-          >
-            {user.username}
-          </li>
-        ))}
+        {users.value && users.value.length > 0 ? (
+          users.value.map(user => (
+            <li
+              className="p-5 rounded cursor-pointer bg-blue-300 text-white mb-1 transition duration-300 hover:bg-blue-500 "
+              key={user.id}
+              onClick={() => onUserClick(user)}
+            >
+              {user.username}
+            </li>
+          ))
+        ) : (
+          <div role="alert" class="bg-blue-500 px-4 py-3">
+            <span className="text-xl text-white">No Data</span>
+          </div>
+        )}
       </ul>
     </div>
   </AsyncContainer>
