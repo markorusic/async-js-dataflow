@@ -79,7 +79,7 @@ const UsersList = ({ users, onUserClick, ...props }) => (
         {users.value && users.value.length > 0 ? (
           users.value.map(user => (
             <li
-              className="p-5 rounded cursor-pointer bg-blue-300 text-white mb-1 transition duration-300 hover:bg-blue-500 "
+              className="p-5 select-none rounded cursor-pointer bg-green-300 text-gray-800 text-xl font-semibold mb-1 transition duration-200 hover:bg-green-400"
               key={user.id}
               onClick={() => onUserClick(user)}
             >
@@ -98,16 +98,28 @@ const UsersList = ({ users, onUserClick, ...props }) => (
 
 const UserDetails = ({ user, details, ...props }) => (
   <div className="col-span-8 border-solid border-1 border-gray-600" {...props}>
-    <h2 className="text-3xl text-blue-500">{user.username}'s details</h2>
+    <h2 className="text-3xl text-gray-800">
+      <span className="text-green-600">{user.username}</span>
+      's details
+    </h2>
     <AsyncContainer {...details}>
       {details.value && (
         <ul>
-          <li className="text-xl">Todos count: {details.value.todos.length}</li>
-          <li className="text-xl">
-            Albums count: {details.value.albums.length}
+          <li className="text-2xl text-gray-800">
+            Todos count:{' '}
+            <span className="text-green-600">{details.value.todos.length}</span>
           </li>
-          <li className="text-xl">
-            Comments count: {details.value.comments.length}
+          <li className="text-2xl text-gray-800">
+            Albums count:{' '}
+            <span className="text-green-600">
+              {details.value.albums.length}
+            </span>
+          </li>
+          <li className="text-2xl text-gray-800">
+            Comments count:{' '}
+            <span className="text-green-600">
+              {details.value.comments.length}
+            </span>
           </li>
         </ul>
       )}
@@ -117,7 +129,7 @@ const UserDetails = ({ user, details, ...props }) => (
 
 const AsyncContainer = ({ children, loading, error, value }) => (
   <>
-    {loading && <span className="text-3xl text-blue-700">Loading...</span>}
+    {loading && <span className="text-3xl text-green-600">Loading...</span>}
     {error && (
       <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded relative">
         <span className="block sm:inline">{error.message}</span>
