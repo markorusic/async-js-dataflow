@@ -37,17 +37,24 @@ const App = () => {
   const userDetails = useAsync(() => fetchUserDetails(activeUser), [activeUser])
 
   return (
-    <div className="p-20 grid grid-cols-12 gap-5">
-      <div className="col-span-4">
-        <SearchInput
-          autoFocus
-          placeholder="Search for user"
-          onChange={setUsername}
-        />
-        <UsersList users={users} onUserClick={setActiveUser} />
-      </div>
-      <div className="col-span-8">
-        {activeUser && <UserDetails user={activeUser} details={userDetails} />}
+    <div className="p-10">
+      <h1 className="text-4xl mb-10 text-gray-800">
+        Async Dataflow - React example
+      </h1>
+      <div className="grid grid-cols-12 gap-5">
+        <div className="col-span-4">
+          <SearchInput
+            autoFocus
+            placeholder="Search for user"
+            onChange={setUsername}
+          />
+          <UsersList users={users} onUserClick={setActiveUser} />
+        </div>
+        <div className="col-span-8">
+          {activeUser && (
+            <UserDetails user={activeUser} details={userDetails} />
+          )}
+        </div>
       </div>
     </div>
   )
@@ -85,7 +92,7 @@ const UsersList = ({ users, onUserClick, ...props }) => (
 
 const UserDetails = ({ user, details, ...props }) => (
   <div className="col-span-8 border-solid border-1 border-gray-600" {...props}>
-    <h1 className="text-4xl text-blue-500">{user.username}'s details</h1>
+    <h2 className="text-4xl text-blue-500">{user.username}'s details</h2>
     <AsyncContainer {...details}>
       {details.value && (
         <ul>

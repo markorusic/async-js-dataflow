@@ -1,15 +1,15 @@
 const axios = require('axios')
 const colors = require('colors/safe')
 
-const fetchUserData = resource =>
+const fetchUserResource = resource =>
   axios
     .get('http://localhost:3000/users/1/' + resource)
     .then(response => response.data)
 
 Promise.all([
-  fetchUserData('todos'),
-  fetchUserData('albums'),
-  fetchUserData('comments')
+  fetchUserResource('todos'),
+  fetchUserResource('albums'),
+  fetchUserResource('comments')
 ])
   .then(([todos, albums, comments]) => {
     console.log(colors.green('todos count'), todos.length)
