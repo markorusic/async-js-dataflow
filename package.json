@@ -7,7 +7,7 @@
     "example": "examples"
   },
   "scripts": {
-    "server": "json-server --watch db.json"
+    "server": "json-server --watch db.json -d 600"
   },
   "author": "Marko Rusic",
   "license": "ISC",
