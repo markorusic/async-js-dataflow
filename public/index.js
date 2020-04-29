@@ -98,7 +98,7 @@ const UsersList = ({ users, onUserClick, ...props }) => (
 
 const UserDetails = ({ user, details, ...props }) => (
   <div className="border-solid border-1 border-gray-600" {...props}>
-    <h2 className="text-2xl text-gray-800">
+    <h2 className="text-3xl text-gray-800">
       <span className="text-green-600">{user.username}</span>
       's details
     </h2>
