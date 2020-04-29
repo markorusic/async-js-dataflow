@@ -79,7 +79,7 @@ const UsersList = ({ users, onUserClick, ...props }) => (
         {users.value && users.value.length > 0 ? (
           users.value.map(user => (
             <li
-              className="p-5 select-none rounded cursor-pointer bg-green-300 text-gray-800 text-xl font-semibold mb-1 transition duration-200 hover:bg-green-400"
+              className="px-5 py-2 select-none rounded cursor-pointer bg-green-300 text-gray-800 text-xl font-semibold mb-1 transition duration-200 hover:bg-green-400"
               key={user.id}
               onClick={() => onUserClick(user)}
             >
@@ -105,19 +105,21 @@ const UserDetails = ({ user, details, ...props }) => (
     <AsyncContainer {...details}>
       {details.value && (
         <ul>
-          <li className="text-2xl text-gray-800">
+          <li className="text-xl text-gray-800">
             Todos count:{' '}
-            <span className="text-green-600">{details.value.todos.length}</span>
+            <span className="text-green-600 text-2xl">
+              {details.value.todos.length}
+            </span>
           </li>
-          <li className="text-2xl text-gray-800">
+          <li className="text-xl text-gray-800">
             Albums count:{' '}
-            <span className="text-green-600">
+            <span className="text-green-600 text-2xl">
               {details.value.albums.length}
             </span>
           </li>
-          <li className="text-2xl text-gray-800">
+          <li className="text-xl text-gray-800">
             Comments count:{' '}
-            <span className="text-green-600">
+            <span className="text-green-600 text-2xl">
               {details.value.comments.length}
             </span>
           </li>
@@ -129,7 +131,7 @@ const UserDetails = ({ user, details, ...props }) => (
 
 const AsyncContainer = ({ children, loading, error, value }) => (
   <>
-    {loading && <span className="text-3xl text-green-600">Loading...</span>}
+    {loading && <span className="text-2xl text-green-600">Loading...</span>}
     {error && (
       <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded relative">
         <span className="block sm:inline">{error.message}</span>
