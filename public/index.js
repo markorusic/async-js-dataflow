@@ -88,7 +88,7 @@ const UsersList = ({ users, onUserClick, ...props }) => (
           ))
         ) : (
           <div class="bg-orange-100 border-l-4 border-orange-500 p-4">
-            <span className="text-xl text-orange-700">No Data</span>
+            <span className="text-orange-700">No Data</span>
           </div>
         )}
       </ul>
@@ -98,7 +98,7 @@ const UsersList = ({ users, onUserClick, ...props }) => (
 
 const UserDetails = ({ user, details, ...props }) => (
   <div className="border-solid border-1 border-gray-600" {...props}>
-    <h2 className="text-3xl text-gray-800">
+    <h2 className="text-2xl text-gray-800">
       <span className="text-green-600">{user.username}</span>
       's details
     </h2>
@@ -131,11 +131,10 @@ const UserDetails = ({ user, details, ...props }) => (
 
 const AsyncContainer = ({ children, loading, error, value }) => (
   <>
-    {loading && <span className="text-2xl text-green-600">Loading...</span>}
+    {loading && <span className="text-2xl text-yellow-600">Loading...</span>}
     {error && (
       <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded relative">
         <span className="block sm:inline">{error.message}</span>
-        <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
       </div>
     )}
     {value && children}
