@@ -16,15 +16,15 @@ const fetchUserResource = (user, resource) =>
 
 const fetchUserDetails = async user => {
   if (user) {
-    const [todos, albums, comments] = await Promise.all([
+    const [todos, albums, posts] = await Promise.all([
       fetchUserResource(user, 'todos'),
       fetchUserResource(user, 'albums'),
-      fetchUserResource(user, 'comments')
+      fetchUserResource(user, 'posts')
     ])
     return {
       todos,
       albums,
-      comments
+      posts
     }
   }
   return null
@@ -118,9 +118,9 @@ const UserDetails = ({ user, details, ...props }) => (
             </span>
           </li>
           <li className="text-xl text-gray-800">
-            Comments count:{' '}
+            Posts count:{' '}
             <span className="text-green-600 text-2xl">
-              {details.value.comments.length}
+              {details.value.posts.length}
             </span>
           </li>
         </ul>

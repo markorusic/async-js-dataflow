@@ -17,15 +17,15 @@ const run = async () => {
     }
     const user = await fetchUser(userId)
     console.log(`User with id ${userId} is ${colors.green(user.name)}`)
-    const [todos, albums, comments] = await Promise.all([
+    const [todos, albums, posts] = await Promise.all([
       fetchUserResource(user, 'todos'),
       fetchUserResource(user, 'albums'),
-      fetchUserResource(user, 'comments')
+      fetchUserResource(user, 'posts')
     ])
     console.log(`${colors.green(user.name)}'s details:`)
     console.log('todos count:', colors.green(todos.length))
     console.log('albums count:', colors.green(albums.length))
-    console.log('comments count:', colors.green(comments.length))
+    console.log('posts count:', colors.green(posts.length))
   } catch (err) {
     console.log(colors.red('Error occured:'), err.message)
   } finally {

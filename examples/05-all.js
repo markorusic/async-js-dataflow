@@ -9,12 +9,12 @@ const fetchUserResource = resource =>
 Promise.all([
   fetchUserResource('todos'),
   fetchUserResource('albums'),
-  fetchUserResource('comments')
+  fetchUserResource('posts')
 ])
-  .then(([todos, albums, comments]) => {
+  .then(([todos, albums, posts]) => {
     console.log(colors.green('todos count'), todos.length)
     console.log(colors.green('albums count'), albums.length)
-    console.log(colors.green('comments count'), comments.length)
+    console.log(colors.green('posts count'), posts.length)
   })
   .catch(err => console.log(colors.red('Error occured:'), err.message))
   .finally(() => console.log(colors.cyan('Promise fulfilled')))
