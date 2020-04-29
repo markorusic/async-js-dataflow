@@ -53,30 +53,6 @@ const App = () => {
   )
 }
 
-const Loader = () => (
-  <div>
-    <span className="text-3xl text-blue-700">Loading...</span>
-  </div>
-)
-
-const ErrorAlert = ({ message }) => (
-  <div
-    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-    role="alert"
-  >
-    <span class="block sm:inline">{message}</span>
-    <span class="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
-  </div>
-)
-
-const AsyncContainer = ({ children, loading, error, value }) => (
-  <>
-    {loading && <Loader />}
-    {error && <ErrorAlert message={error.message} />}
-    {value && children}
-  </>
-)
-
 const SearchInput = ({ onChange, ...props }) => {
   const debouncedOnChange = debounce(value => onChange(value), [300])
   return (
@@ -124,6 +100,26 @@ const UserDetails = ({ user, details, ...props }) => (
       )}
     </AsyncContainer>
   </div>
+)
+
+const AsyncContainer = ({ children, loading, error, value }) => (
+  <>
+    {loading && (
+      <div>
+        <span className="text-3xl text-blue-700">Loading...</span>
+      </div>
+    )}
+    {error && (
+      <div
+        role="alert"
+        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+      >
+        <span className="block sm:inline">{error.message}</span>
+        <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
+      </div>
+    )}
+    {value && children}
+  </>
 )
 
 const mountNode = document.getElementById('app')
