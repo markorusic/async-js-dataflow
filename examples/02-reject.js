@@ -2,7 +2,7 @@ const axios = require('axios')
 const colors = require('colors/safe')
 
 axios
-  .get('https://jsonplaceholder.typicode.com/posts/2')
+  .get('http://localhost:3000/posts/2')
   .then(response => response.data)
   .then(post => {
     if (post.title.length > 10) {

@@ -2,13 +2,11 @@ const axios = require('axios')
 const colors = require('colors/safe')
 
 const fetchUser = id =>
-  axios
-    .get('https://jsonplaceholder.typicode.com/users/' + id)
-    .then(response => response.data)
+  axios.get('http://localhost:3000/users/' + id).then(response => response.data)
 
 const fetchUserData = (user, resource) =>
   axios
-    .get(`https://jsonplaceholder.typicode.com/users/${user.id}/${resource}`)
+    .get(`http://localhost:3000/users/${user.id}/${resource}`)
     .then(response => response.data)
 
 const run = async () => {

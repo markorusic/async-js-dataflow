@@ -3,7 +3,7 @@ const colors = require('colors/safe')
 
 const fetchUserData = resource =>
   axios
-    .get('https://jsonplaceholder.typicode.com/users/1/' + resource)
+    .get('http://localhost:3000/users/1/' + resource)
     .then(response => response.data)
 
 Promise.all([
