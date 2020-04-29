@@ -55,7 +55,7 @@ const App = () => {
 
 const Loader = () => (
   <div>
-    <span className="text-4xl text-blue-500">Loading...</span>
+    <span className="text-3xl text-blue-700">Loading...</span>
   </div>
 )
 
@@ -69,7 +69,7 @@ const ErrorAlert = ({ message }) => (
   </div>
 )
 
-const DataContainer = ({ children, loading, error, value }) => (
+const AsyncContainer = ({ children, loading, error, value }) => (
   <>
     {loading && <Loader />}
     {error && <ErrorAlert message={error.message} />}
@@ -90,7 +90,7 @@ const SearchInput = ({ onChange, ...props }) => {
 }
 
 const UsersList = ({ users, onUserClick, ...props }) => (
-  <DataContainer {...users}>
+  <AsyncContainer {...users}>
     <div {...props}>
       <ul>
         {(users.value || []).map(user => (
@@ -104,17 +104,14 @@ const UsersList = ({ users, onUserClick, ...props }) => (
         ))}
       </ul>
     </div>
-  </DataContainer>
+  </AsyncContainer>
 )
 
 const UserDetails = ({ user, details, ...props }) => (
-  <DataContainer {...details}>
-    {details.value && (
-      <div
-        className="col-span-8 border-solid border-1 border-gray-600"
-        {...props}
-      >
-        <h1 className="text-4xl text-blue-500">{user.username}'s details</h1>
+  <div className="col-span-8 border-solid border-1 border-gray-600" {...props}>
+    <h1 className="text-4xl text-blue-500">{user.username}'s details</h1>
+    <AsyncContainer {...details}>
+      {details.value && (
         <ul>
           <li className="text-xl">Todos count: {details.value.todos.length}</li>
           <li className="text-xl">
@@ -124,9 +121,9 @@ const UserDetails = ({ user, details, ...props }) => (
             Comments count: {details.value.comments.length}
           </li>
         </ul>
-      </div>
-    )}
-  </DataContainer>
+      )}
+    </AsyncContainer>
+  </div>
 )
 
 const mountNode = document.getElementById('app')
