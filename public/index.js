@@ -15,19 +15,19 @@ const fetchUserResource = (user, resource) =>
     .then(response => response.data)
 
 const fetchUserDetails = async user => {
-  if (!user) {
-    return null
+  if (user) {
+    const [todos, albums, comments] = await Promise.all([
+      fetchUserResource(user, 'todos'),
+      fetchUserResource(user, 'albums'),
+      fetchUserResource(user, 'comments')
+    ])
+    return {
+      todos,
+      albums,
+      comments
+    }
   }
-  const [todos, albums, comments] = await Promise.all([
-    fetchUserResource(user, 'todos'),
-    fetchUserResource(user, 'albums'),
-    fetchUserResource(user, 'comments')
-  ])
-  return {
-    todos,
-    albums,
-    comments
-  }
+  return null
 }
 
 const App = () => {
