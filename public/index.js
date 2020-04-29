@@ -41,7 +41,7 @@ const App = () => {
       <h1 className="text-4xl mb-10 text-gray-800">
         Async Dataflow - React example
       </h1>
-      <div className="grid grid-cols-12 gap-5">
+      <div className="grid grid-cols-12">
         <div className="col-span-4">
           <SearchInput
             autoFocus
@@ -50,7 +50,7 @@ const App = () => {
           />
           <UsersList users={users} onUserClick={setActiveUser} />
         </div>
-        <div className="col-span-8">
+        <div className="col-span-8 ml-10">
           {activeUser && (
             <UserDetails user={activeUser} details={userDetails} />
           )}
@@ -87,8 +87,8 @@ const UsersList = ({ users, onUserClick, ...props }) => (
             </li>
           ))
         ) : (
-          <div role="alert" class="bg-blue-500 px-4 py-3">
-            <span className="text-xl text-white">No Data</span>
+          <div class="bg-orange-100 border-l-4 border-orange-500 p-4">
+            <span className="text-xl text-orange-700">No Data</span>
           </div>
         )}
       </ul>
@@ -98,7 +98,7 @@ const UsersList = ({ users, onUserClick, ...props }) => (
 
 const UserDetails = ({ user, details, ...props }) => (
   <div className="col-span-8 border-solid border-1 border-gray-600" {...props}>
-    <h2 className="text-4xl text-blue-500">{user.username}'s details</h2>
+    <h2 className="text-3xl text-blue-500">{user.username}'s details</h2>
     <AsyncContainer {...details}>
       {details.value && (
         <ul>
@@ -117,16 +117,9 @@ const UserDetails = ({ user, details, ...props }) => (
 
 const AsyncContainer = ({ children, loading, error, value }) => (
   <>
-    {loading && (
-      <div>
-        <span className="text-3xl text-blue-700">Loading...</span>
-      </div>
-    )}
+    {loading && <span className="text-3xl text-blue-700">Loading...</span>}
     {error && (
-      <div
-        role="alert"
-        className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
-      >
+      <div className="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 rounded relative">
         <span className="block sm:inline">{error.message}</span>
         <span className="absolute top-0 bottom-0 right-0 px-4 py-3"></span>
       </div>
