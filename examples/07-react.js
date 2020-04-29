@@ -1,9 +1,9 @@
+const path = require('path')
 const open = require('open')
-const Path = require('path')
 const Bundler = require('parcel-bundler')
 
-const entryFiles = Path.join(__dirname, '../public/index.html')
-const port = 1234
+const PORT = 1234
+const entryFiles = path.join(__dirname, '../public/index.html')
 
 const bundler = new Bundler(entryFiles)
-bundler.serve(port).then(() => open('http://localhost:' + port))
+bundler.serve(PORT).then(() => open('http://localhost:' + PORT))
