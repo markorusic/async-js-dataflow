@@ -2,9 +2,12 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useAsync } from 'react-use'
 import axios from 'axios'
+import debounce from 'lodash.debounce'
 
-const fetchUsers = () =>
-  axios.get('http://localhost:3000/users').then(response => response.data)
+const fetchUsers = username =>
+  axios
+    .get('http://localhost:3000/users', { params: { username_like: username } })
+    .then(response => response.data)
 
 const fetchUserResource = (user, resource) =>
   axios
@@ -28,31 +31,31 @@ const fetchUserDetails = async user => {
 }
 
 const App = () => {
+  const [username, setUsername] = useState(null)
   const [activeUser, setActiveUser] = useState(null)
-  const users = useAsync(fetchUsers)
+  const users = useAsync(() => fetchUsers(username), [username])
   const userDetails = useAsync(() => fetchUserDetails(activeUser), [activeUser])
 
   return (
     <div className="p-20 grid grid-cols-12 gap-5">
       <div className="col-span-4">
-        <DataContainer data={users}>
-          <UsersList users={users.value} onUserClick={setActiveUser} />
-        </DataContainer>
+        <SearchInput
+          autoFocus
+          placeholder="Search for user"
+          onChange={setUsername}
+        />
+        <UsersList users={users} onUserClick={setActiveUser} />
       </div>
       <div className="col-span-8">
-        {activeUser && (
-          <DataContainer data={userDetails}>
-            <UserDetails user={activeUser} details={userDetails.value} />
-          </DataContainer>
-        )}
+        {activeUser && <UserDetails user={activeUser} details={userDetails} />}
       </div>
     </div>
   )
 }
 
 const Loader = () => (
-  <div className="flex justify-center">
-    <h4>Loading...</h4>
+  <div>
+    <span className="text-4xl text-blue-500">Loading...</span>
   </div>
 )
 
@@ -66,52 +69,64 @@ const ErrorAlert = ({ message }) => (
   </div>
 )
 
-const DataContainer = ({ children, data }) => (
+const DataContainer = ({ children, loading, error, value }) => (
   <>
-    {data.loading && <Loader />}
-    {data.error && <ErrorAlert message={data.error.message} />}
-    {data.value && children}
+    {loading && <Loader />}
+    {error && <ErrorAlert message={error.message} />}
+    {value && children}
   </>
 )
 
-const UsersList = ({ users = [], onUserClick, ...props }) => {
-  const [username, serUsername] = useState('')
+const SearchInput = ({ onChange, ...props }) => {
+  const debouncedOnChange = debounce(value => onChange(value), [300])
   return (
-    <div {...props}>
-      <input
-        type="text"
-        className="shadow appearance-none border rounded w-full py-2 px-3 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        placeholder="Search for user"
-        onChange={event => serUsername(event.target.value)}
-      />
-      <ul>
-        {users
-          .filter(user =>
-            user.name.toLowerCase().includes(username.toLowerCase())
-          )
-          .map(user => (
-            <li
-              className="p-5 rounded cursor-pointer bg-blue-300 text-white mb-1 transition duration-300 hover:bg-blue-500 "
-              key={user.id}
-              onClick={() => onUserClick(user)}
-            >
-              {user.name}
-            </li>
-          ))}
-      </ul>
-    </div>
+    <input
+      type="text"
+      className="shadow appearance-none border rounded w-full py-2 px-3 mb-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      onChange={event => debouncedOnChange(event.target.value)}
+      {...props}
+    />
   )
 }
 
+const UsersList = ({ users, onUserClick, ...props }) => (
+  <DataContainer {...users}>
+    <div {...props}>
+      <ul>
+        {(users.value || []).map(user => (
+          <li
+            className="p-5 rounded cursor-pointer bg-blue-300 text-white mb-1 transition duration-300 hover:bg-blue-500 "
+            key={user.id}
+            onClick={() => onUserClick(user)}
+          >
+            {user.username}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </DataContainer>
+)
+
 const UserDetails = ({ user, details, ...props }) => (
-  <div className="col-span-8 border-solid border-1 border-gray-600" {...props}>
-    <h1 className="text-4xl text-blue-500">{user.name}'s details</h1>
-    <ul>
-      <li className="text-xl">Todos count: {details.todos.length}</li>
-      <li className="text-xl">Albums count: {details.albums.length}</li>
-      <li className="text-xl">Comments count: {details.comments.length}</li>
-    </ul>
-  </div>
+  <DataContainer {...details}>
+    {details.value && (
+      <div
+        className="col-span-8 border-solid border-1 border-gray-600"
+        {...props}
+      >
+        <h1 className="text-4xl text-blue-500">{user.username}'s details</h1>
+        <ul>
+          <li className="text-xl">Todos count: {details.value.todos.length}</li>
+          <li className="text-xl">
+            Albums count: {details.value.albums.length}
+          </li>
+          <li className="text-xl">
+            Comments count: {details.value.comments.length}
+          </li>
+        </ul>
+      </div>
+    )}
+  </DataContainer>
 )
 
 const mountNode = document.getElementById('app')
