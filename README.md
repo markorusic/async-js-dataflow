@@ -24,7 +24,7 @@ Note: React code for ```examples/07-react.js``` is located in ```public/index.js
 * [Promise docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 * [Promise usage docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)
 * [Async function docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
-* [Fireship how JS words](https://fireship.io/courses/javascript/intro-how-js-works/)
+* [Fireship how JS works](https://fireship.io/courses/javascript/intro-how-js-works/)
 * [Fireship Promise in 100 seconds](https://www.youtube.com/watch?v=RvYYCGs45L4)
 * [Fireship async/awiat](https://www.youtube.com/watch?v=vn3tm0quoqE)
 
