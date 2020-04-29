@@ -61,7 +61,7 @@ const App = () => {
 }
 
 const SearchInput = ({ onChange, ...props }) => {
-  const debouncedOnChange = debounce(value => onChange(value), [300])
+  const debouncedOnChange = debounce(value => onChange(value), 300)
   return (
     <input
       type="text"
