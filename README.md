@@ -2,7 +2,7 @@
 
 ## Setup
 
-First install node modules
+Install node modules:
 ```sh
 npm i
 ```
