@@ -1,5 +1,7 @@
 # JS Async Dataflow
 
+![meme](meme.jpg)
+
 ## Project setup
 
 Install node modules:
